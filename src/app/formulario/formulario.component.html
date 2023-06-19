@@ -1,0 +1,74 @@
+<h1>Formulario</h1>
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-formulario',
+  template: `
+    <form (submit)="agregarPersona()">
+      <div>
+        <label for="id">ID:</label>
+        <input type="text" id="id" [(ngModel)]="persona.id" required>
+      </div>
+      <div>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" [(ngModel)]="persona.name" required>
+      </div>
+      <div>
+        <label for="lastName">Apellido:</label>
+        <input type="text" id="lastName" [(ngModel)]="persona.lastName" required>
+      </div>
+      <div>
+        <label for="position">Cargo:</label>
+        <input type="text" id="position" [(ngModel)]="persona.position" required>
+      </div>
+      <div>
+        <label for="salary">Salario:</label>
+        <input type="text" id="salary" [(ngModel)]="persona.salary" required>
+      </div>
+      <button type="submit">Agregar</button>
+    </form>
+  `,
+  styles: [
+    `
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-bottom: 5px;
+    }
+    input {
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    `
+  ]
+})
+export class FormularioComponent {
+  @Output() personaAgregada = new EventEmitter<any>();
+  persona = {
+    id: '',
+    name: '',
+    lastName: '',
+    position: '',
+    salary: ''
+  };
+
+  agregarPersona() {
+    this.personaAgregada.emit(this.persona);
+    this.persona = {
+      id: '',
+      name: '',
+      lastName: '',
+      position: '',
+      salary: ''
+    };
+  }
+}
